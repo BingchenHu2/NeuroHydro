@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroHydro - Biosensing Sweat Patch</title>
+  <meta name="description" content="NeuroHydro is a student-built biosensing sweat patch that turns sweat into real-time hydration and electrolyte insight. Join the waitlist for the pilot.">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<a class="skip" href="#hero">Skip to content</a>
+<header class="nav">
+  <strong>NeuroHydro</strong>
+  <nav>
+    <a href="#product">Product</a><a href="#app">The App</a><a href="#problem">The Problem</a>
+    <a href="#team">Team</a><a href="#waitlist">Join the Waitlist</a>
+  </nav>
+</header>
+
+<main>
+<section id="hero" class="hero">
+  <img src="{{ asset_base }}/images/hero_1280.webp" alt="Runner on a coastal road at sunrise wearing a NeuroHydro biosensing patch on her upper arm">
+  <div class="hero-text">
+    <h1>Hydrate for your Mind &amp; Mood.</h1>
+    <p>A biosensing sweat patch built to turn your sweat into real-time hydration &amp; electrolyte insight.</p>
+    <p class="small">Student-built working prototype · Pomfret School</p>
+    <a class="btn" href="#waitlist">Join the Waitlist</a>
+  </div>
+</section>
+
+<section id="product" class="section">
+  <img class="wide" src="{{ asset_base }}/images/product_layers.webp" alt="3D exploded render of the NeuroHydro patch's five layers">
+  <h2>NeuroHydro Biosensing Sweat Patch</h2>
+  <p>Five engineered layers that turn your sweat into a live hydration signal.</p>
+  <ol class="layers">
+    {% for title, text in layers %}
+    <li><h3>{{ title }}</h3><p>{{ text }}</p></li>
+    {% endfor %}
+  </ol>
+  <p>Engineered with precision microfluidics and advanced biosensors, our patch is designed to deliver real-time electrolyte and hydration insights directly to your device.</p>
+  <a class="btn" href="#waitlist">Join the Waitlist</a>
+  <video controls preload="none" src="{{ asset_base }}/videos/demo_720.mp4"></video>
+  <p class="small">Working prototype demo. Scan patch to hydration insight.</p>
+</section>
+
+<section id="app" class="section">
+  <h2>App Integration</h2>
+  <p>Real-time data visualization connecting your sweat to actionable insights.</p>
+  <h3>Your Personal Hydration Coach</h3>
+  <p>The NeuroHydro app is designed to turn physiological signals into practical guidance. It tells you when to hydrate so you can stay at peak performance.</p>
+  <ul>{% for f in features %}<li>{{ f }}</li>{% endfor %}</ul>
+</section>
+
+<section id="problem" class="section">
+  <h2>One day, a NeuroHydro patch on every athlete's arm.</h2>
+  <div class="grid">
+    {% for img, title, text in benefits %}
+    <article><img src="{{ asset_base }}/images/{{ img }}" alt=""><h3>{{ title }}</h3><p>{{ text }}</p></article>
+    {% endfor %}
+  </div>
+  <p class="small">Sources: Ganio et al., <em>British Journal of Nutrition</em> (2011); Armstrong et al., <em>The Journal of Nutrition</em> (2012).</p>
+</section>
+
+<section id="team" class="section">
+  <h2>Meet the NeuroHydro Innovators</h2>
+  <p>Our team combines expertise in athletics, research, and hands-on prototyping to build accurate, leading-edge biosensing technology.</p>
+  <div class="grid team">
+    {% for name, role, photo in team %}
+    <figure><img src="{{ asset_base }}/images/{{ photo }}" alt="{{ name }}"><figcaption><strong>{{ name }}</strong><br>{{ role }}</figcaption></figure>
+    {% endfor %}
+  </div>
+  <h3>Our Story</h3>
+  {% for p in story %}<p>{{ p }}</p>{% endfor %}
+  <p><strong>Our mission:</strong> to empower every student, athlete, and outdoor worker to reach their peak mental and physical potential through real-time hydration and electrolyte insights.</p>
+  <ul>{% for t, d in values %}<li><strong>{{ t }}:</strong> {{ d }}</li>{% endfor %}</ul>
+</section>
+
+<section id="waitlist" class="section">
+  <h2>Be the First to Unlock Your Potential.</h2>
+  <p>Be first to try the pilot program. Waitlist members get build updates and early access when testing begins.</p>
+  <form id="waitlist-form" novalidate>
+    <label>Full Name (optional)<input name="name" autocomplete="name"></label>
+    <label>Email Address<input name="email" type="email" autocomplete="email" required></label>
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="btn" type="submit">Join the Waitlist</button>
+    <p id="form-msg" role="status"></p>
+    <p class="small">We'll only use your email for NeuroHydro updates. No spam.</p>
+  </form>
+</section>
+</main>
+
+<footer>
+</footer>
+<p>NeuroHydro is a student-built prototype. It is not a medical device and does not provide medical or health advice.</p>
+<script>
+document.getElementById("waitlist-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const form = e.target, msg = document.getElementById("form-msg");
+  const res = await fetch("/waitlist", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(Object.fromEntries(new FormData(form))),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (data.ok) { form.reset(); msg.textContent = "You're on the list!"; }
+  else { msg.textContent = data.error || "Something went wrong. Please try again."; }
+});
+</script>
+</body>
+</html>

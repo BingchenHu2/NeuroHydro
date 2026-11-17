@@ -1,0 +1,29 @@
+:root { --bg:#0f172a; --surface:#1e293b; --text:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8; }
+@media (prefers-color-scheme: light) { :root { --bg:#f8fafc; --surface:#e2e8f0; --text:#0f172a; --muted:#475569; --accent:#0369a1; } }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin:0; background:var(--bg); color:var(--text); font:17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+img, video { max-width:100%; display:block; border-radius:12px; }
+a { color:var(--accent); }
+.skip { position:absolute; left:-999px; } .skip:focus { left:8px; top:8px; background:var(--surface); padding:8px; }
+.nav { display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:space-between; align-items:center; padding:16px 5vw; position:sticky; top:0; background:var(--bg); z-index:5; }
+.nav nav { display:flex; flex-wrap:wrap; gap:8px 20px; } .nav a { text-decoration:none; color:var(--text); }
+.hero { position:relative; min-height:70vh; display:grid; }
+.hero img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:0; }
+.hero-text { position:relative; align-self:end; padding:8vw 5vw; max-width:720px; color:#fff; text-shadow:0 2px 12px rgba(0,0,0,.6); }
+h1 { font-size:clamp(2.2rem, 6vw, 4rem); line-height:1.1; margin:0 0 16px; }
+.section { max-width:900px; margin:0 auto; padding:64px 5vw; }
+h2 { font-size:clamp(1.6rem, 4vw, 2.4rem); line-height:1.2; }
+.small { color:var(--muted); font-size:.9rem; }
+.hero-text .small { color:#e2e8f0; }
+.btn { display:inline-block; background:var(--accent); color:#0f172a; padding:12px 24px; border:0; border-radius:999px; font:inherit; font-weight:600; text-decoration:none; cursor:pointer; text-shadow:none; }
+.btn:focus-visible, input:focus-visible, a:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+.layers { padding-left:1.2em; } .layers h3 { margin-bottom:0; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:24px; }
+.grid article img { aspect-ratio:4/3; object-fit:cover; margin-bottom:12px; }
+.team { grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); } .team figure { margin:0; } .team img { aspect-ratio:1; object-fit:cover; }
+form { display:grid; gap:16px; max-width:480px; } label { display:grid; gap:6px; }
+input { padding:12px; border-radius:8px; border:1px solid var(--muted); background:var(--surface); color:var(--text); font:inherit; }
+.hp { position:absolute; left:-9999px; }
+footer { text-align:center; padding:40px 5vw; color:var(--muted); font-size:.9rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }

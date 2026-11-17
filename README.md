@@ -34,5 +34,4 @@ static/images/      site images
 static/videos/      demo video
 ```
 
-## Disclaimer
-NeuroHydro is a student-built prototype developed at Pomfret School. It is not a medical device and does not provide medical or health advice.
+
